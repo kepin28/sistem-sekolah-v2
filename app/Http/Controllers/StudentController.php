@@ -10,31 +10,38 @@ class StudentController extends Controller
     {
         return "Ini adalah halaman daftar siswa";
     }
+ 
     public function show(string $id)
     {
-        return "menampilkan detail siswa dengan ID: ($id)";
+        return "Menampilkan detail siswa dengan ID: {$id}";
     }
-
-     public function create()
+   
+    public function create()
     {
-        return "menampilkan halaman siswa";
+        return "Menampilkan halaman tammbah siswa";
     }
+ 
     public function edit(string $id)
     {
-    return "menampilkan halaman edit siswa";
+        return "Menampilkan halaman edit siswa";
     }
+ 
     public function store()
     {
-        return "melakukan perubahan data siswa";
+        return "melakukkan penambahan data siswa";
     }
+ 
     public function update(string $id)
     {
-        return "melakukan perubahan data siswa";
+        return "Melakukkan perubahan data siswa {$id}";
     }
+ 
     public function destroy(string $id)
     {
-        return "menghapus data siswa";
+        return "Menghapus data siswa {$id}";
     }
+ 
+ 
 }
  
  
