@@ -10,8 +10,19 @@ class MajorController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-         return "Ini adalah halaman daftar Jurusan";
+        {
+        $title = 'Sistem Sekolah - Daftar Jurusan';
+        $majors = [
+        [
+            'code' => 'AKL',
+            'name' => 'Akuntasi Dasar',
+            'description' => 'Ini adalah pelajaran menghitung pajak',
+        ],
+        ];
+        return view('majors.index', [
+            'title' => $title,
+            'majors' => $majors
+        ]);
     }
 
     /**

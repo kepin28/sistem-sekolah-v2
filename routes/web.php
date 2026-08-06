@@ -32,7 +32,7 @@ Route::name('students.')->prefix('students')->group(function () {
 
 });
 
-Route::name('teacher.')->prefix('teacher')->group(function () {
+Route::name('teachers.')->prefix('teachers')->group(function () {
 
     Route::get('/', [TeacherController::class, 'index'])->name('index');
 
@@ -68,4 +68,4 @@ Route::name('classes.')->prefix('classes')->group(function () {
 
 });
 
-Route::resource('Majors', MajorController::Class);
+Route::resource('majors', MajorController::class);
