@@ -29,8 +29,11 @@ class MajorController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-         return "Menampilkan halaman tambah jurusan";
+     {
+         $title ='Sistem Sekolah - Membuat Daftar Jurusan';
+        return view('majors.create', [
+            'title' => $title
+        ]);
     }
 
     /**
@@ -46,7 +49,11 @@ class MajorController extends Controller
      */
     public function show(string $id)
     {
-         return "Menampilkan detail jurusan dengan ID: {$id}";
+         $title ='Sistem Sekolah - Menampilkan Jurusan';
+
+        return view('majors.show', [
+            'title' => $title
+        ]);
     }
 
     /**
@@ -54,7 +61,10 @@ class MajorController extends Controller
      */
     public function edit(string $id)
     {
-          return "Menampilkan halaman edit jurusan dengan ID: {$id}";
+         $title ='Sistem Sekolah - Mengubah Daftar Jurusan';
+        return view('majors.edit', [
+            'title' => $title
+        ]);
     }
 
     /**
