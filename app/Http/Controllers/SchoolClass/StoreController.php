@@ -12,6 +12,6 @@ class StoreController extends Controller
      */
     public function __invoke(Request $request)
     {
-          return "melakukkan penambahan nilai siswa";
+          return "melakukkan penambahan data kelas";
     }
 }

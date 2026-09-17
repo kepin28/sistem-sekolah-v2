@@ -10,15 +10,30 @@ class MajorController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-        {
+    {
         $title = 'Sistem Sekolah - Daftar Jurusan';
+
         $majors = [
-        [
-            'code' => 'AKL',
-            'name' => 'Akuntasi Dasar',
-            'description' => 'Ini adalah pelajaran menghitung pajak',
-        ],
+            [
+                'id' => 1,
+                'code' => 'AKL',
+                'name' => 'Akuntansi Dasar',
+                'description' => 'Ini adalah pelajaran menghitung pajak',
+            ],
+            [
+                'id' => 2,
+                'code' => 'BD',
+                'name' => 'Bisnis Digital',
+                'description' => 'Mempelajari bisnis dan pemasaran digital',
+            ],
+            [
+                'id' => 3,
+                'code' => 'TKJ',
+                'name' => 'Teknik Komputer dan Jaringan',
+                'description' => 'Mempelajari komputer dan jaringan',
+            ],
         ];
+
         return view('majors.index', [
             'title' => $title,
             'majors' => $majors
@@ -29,8 +44,9 @@ class MajorController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-     {
-         $title ='Sistem Sekolah - Membuat Daftar Jurusan';
+    {
+        $title = 'Sistem Sekolah - Membuat Daftar Jurusan';
+
         return view('majors.create', [
             'title' => $title
         ]);
@@ -39,9 +55,9 @@ class MajorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, string $id)
+    public function store(Request $request)
     {
-        return "Menampilkan detail jurusan dengan ID: {$id}";
+        return "Melakukan penambahan data jurusan";
     }
 
     /**
@@ -49,10 +65,11 @@ class MajorController extends Controller
      */
     public function show(string $id)
     {
-         $title ='Sistem Sekolah - Menampilkan Jurusan';
+        $title = 'Sistem Sekolah - Menampilkan Jurusan';
 
         return view('majors.show', [
-            'title' => $title
+            'title' => $title,
+            'id' => $id
         ]);
     }
 
@@ -61,9 +78,11 @@ class MajorController extends Controller
      */
     public function edit(string $id)
     {
-         $title ='Sistem Sekolah - Mengubah Daftar Jurusan';
+        $title = 'Sistem Sekolah - Mengubah Daftar Jurusan';
+
         return view('majors.edit', [
-            'title' => $title
+            'title' => $title,
+            'id' => $id
         ]);
     }
 
@@ -72,7 +91,7 @@ class MajorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         return "Melakukkan perubahan data jurusan {$id}";
+        return "Melakukan perubahan data jurusan {$id}";
     }
 
     /**
@@ -80,6 +99,6 @@ class MajorController extends Controller
      */
     public function destroy(string $id)
     {
-         return "Menghapus data jurusan {$id}";
+        return "Menghapus data jurusan {$id}";
     }
 }
