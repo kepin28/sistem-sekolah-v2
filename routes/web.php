@@ -17,8 +17,8 @@ Route::get('/', function () {
 });
 Route::name('students.')->prefix('students')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
-    Route::get('/{student}', [StudentController::class, 'show'])->name('show')->whereNumber('id');
     Route::get('/create', [StudentController::class, 'create'])->name('create');
+    Route::get('/{student}', [StudentController::class, 'show'])->name('show');
     Route::get('/{student}/edit', [StudentController::class, 'edit'])->name('edit');
     Route::post('/', [StudentController::class, 'store'])->name('store');
     Route::put('/{student}', [StudentController::class, 'update'])->name('update');

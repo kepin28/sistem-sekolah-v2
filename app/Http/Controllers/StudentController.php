@@ -11,7 +11,7 @@ class StudentController extends Controller
     {
     $title ='Sistem Sekolah - Daftar Siswa';
 
-    $students = Student::select(['id', 'name', 'class', 'major'])->get();
+    $students = Student::select(['id', 'nis', 'name', 'class', 'major'])->get();
 
     return view('students.index', [
         'title'=> $title,
@@ -37,7 +37,7 @@ class StudentController extends Controller
         ]);
     }
  
-    public function edit(string $student)
+    public function edit(Student $student)
     {
          $title ='Sistem Sekolah - Mengubah Daftar Siswa';
 
@@ -52,26 +52,34 @@ class StudentController extends Controller
         $validatedrequest = $request->validate([
             'nis'=> ['required', 'string', 'size:4', 'unique:students,nis'],
             'name'=> ['required', 'string'],
-            'gender'=> ['required', 'string', 'in:Laki-Laki,Perempuan'],
-            'major' =>['required', 'string', 'in:AKL,TKJ,BID'],
+            'gender'=> ['required', 'string', 'in:Laki-laki,Perempuan'],
+            'major' =>['required', 'string', 'in:AKL,TKJ,BiD'],
             'class'=> ['required', 'string']
         ]);
 
-        student::create($validatedrequest);
+        Student::create($validatedrequest);
+        return redirect()->route('students.index');
+    }
+ 
+    public function update(student $student, request $request)
+    {
+           $validatedrequest = $request->validate([
+            'nis'=> ['required', 'string', 'size:4', 'unique:students,nis,' . $student->id],
+            'name'=> ['required', 'string'],
+            'gender'=> ['required', 'string', 'in:Laki-laki,Perempuan'],
+            'major' =>['required', 'string', 'in:AKL,TKJ,BiD'],
+            'class'=> ['required', 'string']
+        ]);
 
+        $student->update($validatedrequest);
+        return redirect()->route('students.index');
+    }
+ 
+    public function destroy(student $student)
+    {
+        $student->delete();
 
         return redirect()->route('students.index');
-
-    }
- 
-    public function update(string $id)
-    {
-        return "Melakukkan perubahan data siswa {$id}";
-    }
- 
-    public function destroy(string $id)
-    {
-        return "Menghapus data siswa {$id}";
     }
  
  
