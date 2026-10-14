@@ -26,7 +26,7 @@ class StudentController extends Controller
     })
     ->when($class, fn($query, $class) => $query->where('class', '=', $class))
     ->when($major, fn($query, $major) => $query->where('major', '=', $major))
-    ->paginate(5);
+    ->paginate(5)
     ->withQueryString();
 
     $schoolClasses = ['10 AKL', '11 AKL', '11 TKJ 1', '11 TKJ 2', '10 BiD', '12 TKJ 1', '12 TKJ 2', '12 TKJ 3'];
