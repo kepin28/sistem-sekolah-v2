@@ -17,7 +17,7 @@ class StudentController extends Controller
     $class = $request->query('class');
     $major = $request->query('major');
 
-    $students = Student::select(['id', 'nis', 'name', 'class', 'major'])
+    $students = Student::select(['id', 'nis', 'name', 'gender', 'major_id', 'class_id', 'user_id'])
     ->when($search, function ($query, $search) {
         $query->where(function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%")
@@ -26,6 +26,7 @@ class StudentController extends Controller
     })
     ->when($class, fn($query, $class) => $query->where('class', '=', $class))
     ->when($major, fn($query, $major) => $query->where('major', '=', $major))
+    ->with(['schoolClass', 'major'])
     ->paginate(5)
     ->withQueryString();
 

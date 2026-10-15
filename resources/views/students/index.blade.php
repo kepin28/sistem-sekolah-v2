@@ -114,11 +114,11 @@
                     </td>
 
                     <td class="px-5 py-4">
-                        {{ $student->class }}
+                        {{ $student->schoolClass->name ?? $student->class }}
                     </td>
 
                     <td class="px-5 py-4">
-                        {{ $student->major }}
+                        {{ $student->major->name ?? $student->major }}
                     </td>
 
                     <td class="px-5 py-4">
