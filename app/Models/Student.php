@@ -18,6 +18,7 @@ class Student extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+
     public function major()
     {
         return $this->belongsTo(Major::class, 'major_id', 'id');
@@ -30,11 +31,6 @@ class Student extends Model
 
     public function subjects()
     {
-        return $this->belongsToMany(
-            Subject::class,
-            'student_subject',
-            'student_id',
-            'subject_id'
-        );
+        return $this->belongsToMany(Subject::class, 'student_subject', 'subject_id', 'student_id');
     }
 }

@@ -14,22 +14,15 @@ class StudentFactory extends Factory
 
     public function definition(): array
     {
-        $majorId = Major::query()->inRandomOrder()->value('id')
-            ?? Major::factory()->create()->id;
-
-        $classId = SchoolClass::query()->inRandomOrder()->value('id')
-            ?? SchoolClass::factory()->create()->id;
-
         return [
             'nis' => fake()->unique()->numerify('####'),
             'name' => fake()->name(),
-            'gender' => fake()->randomElement([
-                'Laki-Laki',
-                'Perempuan',
-            ]),
+            'gender' => fake()->randomElement(['Laki-Laki', 'Perempuan']),
             'user_id' => User::factory(),
-            'major_id' => $majorId,
-            'class_id' => $classId,
+            'major_id' => Major::query()->inRandomOrder()->value('id')
+                ?? Major::factory()->create()->id,
+            'class_id' => SchoolClass::query()->inRandomOrder()->value('id')
+                ?? SchoolClass::factory()->create()->id,
         ];
     }
 }
