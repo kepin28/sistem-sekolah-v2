@@ -19,6 +19,7 @@ class SchoolClassFactory extends Factory
                 '10 AKL',
                 '11 AKL',
                 '12 AKL',
+                
                 '10 TKJ 1',
                 '11 TKJ 1',
                 '11 TKJ 2',
