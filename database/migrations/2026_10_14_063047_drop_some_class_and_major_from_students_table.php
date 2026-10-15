@@ -27,7 +27,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('students', function (Blueprint $table) {
-            //
+             if(!Schema::hasColumn('students', 'major')) {
+                $table->string('major')->after('gender');
+            }
+            if(!Schema::hasColumn('students', 'class')) {
+                $table->string('class')->after('major');
+            }
         });
     }
 };

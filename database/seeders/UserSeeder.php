@@ -8,32 +8,8 @@ use Illuminate\Foundation\Auth\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        $userTeacherEmail = 'richard@ski.sch.id';
-        $userStudentEmail = 'andi@ski.sch.id';
-
-        // User Teacher
-        User::updateOrCreate(
-            ['email' => $userTeacherEmail],
-            [
-                'name' => 'Richard Marcel',
-                'password' => bcrypt('password'),
-                'role' => 'teacher',
-            ]
-        );
-
-        // User student
-        User::updateOrCreate(
-            ['email' => $userStudentEmail],
-            [
-                'name' => 'Andi',
-                'password' => bcrypt('password'),
-                'role' => 'student',
-            ]
-        );  
+        User::factory()->create()->count(100);
     }
 }
