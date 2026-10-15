@@ -1,97 +1,115 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
+
 use App\Http\Requests\Student\StoreRequest;
 use App\Http\Requests\Student\UpdateRequest;
 use App\Models\Student;
+use App\Models\SchoolClass;
+use App\Models\Major;
 use Illuminate\Http\Request;
- 
+
 class StudentController extends Controller
 {
     public function index(Request $request)
     {
-    $title ='Sistem Sekolah - Daftar Siswa';
+        $title = 'Sistem Sekolah - Daftar Siswa';
 
-    $search = $request->input('search');
-    $class = $request->query('class');
-    $major = $request->query('major');
+        $search = $request->input('search');
+        $class = $request->query('class');
+        $major = $request->query('major');
 
-    $students = Student::select(['id', 'nis', 'name', 'class', 'major'])
-    ->when($search, function ($query, $search) {
-        $query->where(function ($query) use ($search) {
-            $query->where('name', 'like', "%{$search}%")
-             ->orWhere('nis', 'like', "%{$search}%");
-        });
-    })
-    ->when($class, fn($query, $class) => $query->where('class', '=', $class))
-    ->when($major, fn($query, $major) => $query->where('major', '=', $major))
-    ->paginate(5)
-    ->withQueryString();
+        $students = Student::with(['schoolClass', 'major'])
+            ->select([
+                'id',
+                'nis',
+                'name',
+                'class_id',
+                'major_id',
+            ])
+            ->when($search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('nis', 'like', "%{$search}%");
+                });
+            })
+            ->when($class, function ($query, $class) {
+                $query->where('class_id', $class);
+            })
+            ->when($major, function ($query, $major) {
+                $query->where('major_id', $major);
+            })
+            ->paginate(5)
+            ->withQueryString();
 
-    $schoolClasses = ['10 AKL', '11 AKL', '11 TKJ 1', '11 TKJ 2', '10 BiD', '12 TKJ 1', '12 TKJ 2', '12 TKJ 3'];
-    $majors = ['AKL', 'BiD', 'TKJ'];
+        $schoolClasses = SchoolClass::all();
+        $majors = Major::all();
 
-    return view('students.index', [
-        'title'=> $title,
-        'students'=> $students,
-        'schoolClasses'=> $schoolClasses,
-        'majors'=> $majors
-    ]);
+        return view('students.index', [
+            'title' => $title,
+            'students' => $students,
+            'schoolClasses' => $schoolClasses,
+            'majors' => $majors,
+        ]);
     }
- 
+
     public function show(Student $student)
     {
-         $title ='Sistem Sekolah - Menampilkan Nama Siswa';
+        $title = 'Sistem Sekolah - Menampilkan Nama Siswa';
+
+        $student->load(['schoolClass', 'major']);
 
         return view('students.show', [
             'title' => $title,
-            'student' => $student
+            'student' => $student,
         ]);
     }
-   
+
     public function create()
     {
-         $title ='Sistem Sekolah - Membuat Daftar Siswa';
+        $title = 'Sistem Sekolah - Membuat Daftar Siswa';
+
         return view('students.create', [
-            'title' => $title
+            'title' => $title,
+            'schoolClasses' => SchoolClass::all(),
+            'majors' => Major::all(),
         ]);
     }
- 
+
     public function edit(Student $student)
     {
-         $title ='Sistem Sekolah - Mengubah Daftar Siswa';
+        $title = 'Sistem Sekolah - Mengubah Daftar Siswa';
 
         return view('students.edit', [
             'title' => $title,
-            'student' => $student
+            'student' => $student,
+            'schoolClasses' => SchoolClass::all(),
+            'majors' => Major::all(),
         ]);
     }
- 
+
     public function store(StoreRequest $request)
     {
-        $validatedrequest = $request->validated();
+        $validatedRequest = $request->validated();
 
-        Student::create($validatedrequest);
+        Student::create($validatedRequest);
+
         return redirect()->route('students.index');
     }
- 
-    public function update(student $student, UpdateRequest $request)
+
+    public function update(Student $student, UpdateRequest $request)
     {
-           $validatedrequest = $request->validated();
+        $validatedRequest = $request->validated();
 
-        $student->update($validatedrequest);
+        $student->update($validatedRequest);
+
         return redirect()->route('students.index');
     }
- 
-    public function destroy(student $student)
+
+    public function destroy(Student $student)
     {
         $student->delete();
 
         return redirect()->route('students.index');
     }
- 
- 
 }
- 
- 

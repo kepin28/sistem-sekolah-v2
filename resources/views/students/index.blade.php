@@ -47,9 +47,9 @@
             <option value="">Semua Kelas</option>
 
             @foreach ($schoolClasses as $class)
-                <option value="{{ $class }}"
-                    @selected(request('class') === $class)>
-                    {{ $class }}
+                <option value="{{ $class->id }}"
+                    @selected(request('class') == $class->id)>
+                    {{ $class->name }}
                 </option>
             @endforeach
 
@@ -68,9 +68,9 @@
             <option value="">Semua Jurusan</option>
 
             @foreach ($majors as $major)
-                <option value="{{ $major }}"
-                    @selected(request('major') === $major)>
-                    {{ $major }}
+                <option value="{{ $major->id }}"
+                    @selected(request('major') == $major->id)>
+                    {{ $major->name }}
                 </option>
             @endforeach
 
@@ -114,11 +114,11 @@
                     </td>
 
                     <td class="px-5 py-4">
-                        {{ $student->class }}
+                        {{ $student->schoolClass?->name ?? '-' }}
                     </td>
 
                     <td class="px-5 py-4">
-                        {{ $student->major }}
+                        {{ $student->major?->name ?? '-' }}
                     </td>
 
                     <td class="px-5 py-4">
