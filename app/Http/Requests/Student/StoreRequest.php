@@ -26,8 +26,8 @@ class StoreRequest extends FormRequest
             'nis'=> ['required', 'string', 'size:4', 'unique:students,nis'],
             'name'=> ['required', 'string'],
             'gender'=> ['required', 'string', 'in:Laki-laki,Perempuan'],
-            'major' =>['required', 'string', 'in:AKL,TKJ,BiD'],
-            'class'=> ['required', 'string']
+            'major_id' =>['required', 'exists:majors,id'],
+            'class_id'=> ['required', 'exists:classes,id']
         ];
     }
 
@@ -37,8 +37,8 @@ class StoreRequest extends FormRequest
             'nis' => 'Nomor Induk Siswa',
             'name' => 'Nama Lengkap',
             'gender' => 'Jenis Kelamin',
-            'class' => 'Kelas',
-            'major' => 'Jurusan'
+            'class_id' => 'Kelas',
+            'major_id' => 'Jurusan'
         ];
     }
 }

@@ -41,6 +41,7 @@ class Authcontroller extends Controller
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => 'user',
         ]);
 
         // send data
@@ -48,6 +49,7 @@ class Authcontroller extends Controller
             'name' => $validatedRequest['name'],
             'email' => $validatedRequest['email'],
             'password' => bcrypt($validatedRequest['password']),
+            'role' => 'user',
         ]);
 
         // handle if success

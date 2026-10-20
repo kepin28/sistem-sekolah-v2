@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
  
 use App\Http\Requests\Student\StoreRequest;
 use App\Http\Requests\Student\UpdateRequest;
+use App\Models\Major;
+use App\Models\SchoolClass;
 use App\Models\Student;
 use Illuminate\Http\Request;
  
@@ -54,8 +56,13 @@ class StudentController extends Controller
     public function create()
     {
          $title ='Sistem Sekolah - Membuat Daftar Siswa';
+        $majors = Major::select(['id', 'name'])->get();
+        $schoolClasses = SchoolClass::select(['id', 'name'])->get();
+
         return view('students.create', [
-            'title' => $title
+            'title' => $title,
+            'majors' => $majors,
+            'schoolClasses' => $schoolClasses
         ]);
     }
  
