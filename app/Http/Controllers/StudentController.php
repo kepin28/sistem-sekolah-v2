@@ -65,16 +65,20 @@ class StudentController extends Controller
             'schoolClasses' => $schoolClasses
         ]);
     }
- 
-    public function edit(Student $student)
-    {
-         $title ='Sistem Sekolah - Mengubah Daftar Siswa';
 
-        return view('students.edit', [
-            'title' => $title,
-            'student' => $student
-        ]);
-    }
+public function edit(Student $student)
+{
+    $title = 'Sistem Sekolah - Mengubah Daftar Siswa';
+    $majors = Major::select(['id', 'name'])->get();
+    $schoolClasses = SchoolClass::select(['id', 'name'])->get();
+
+    return view('students.edit', [
+        'title' => $title,
+        'student' => $student,
+        'majors' => $majors,
+        'schoolClasses' => $schoolClasses
+    ]);
+}
  
     public function store(StoreRequest $request)
     {
@@ -84,13 +88,12 @@ class StudentController extends Controller
         return redirect()->route('students.index');
     }
  
-    public function update(student $student, UpdateRequest $request)
-    {
-           $validatedrequest = $request->validated();
-
-        $student->update($validatedrequest);
-        return redirect()->route('students.index');
-    }
+public function update(Student $student, UpdateRequest $request)
+{
+    $validatedrequest = $request->validated();
+    $student->update($validatedrequest);
+    return redirect()->route('students.index');
+}
  
     public function destroy(student $student)
     {

@@ -26,9 +26,8 @@ class UpdateRequest extends FormRequest
             'nis'=> ['required', 'string', 'size:4', 'unique:students,nis,' . $this->student->id],
             'name'=> ['required', 'string'],
             'gender'=> ['required', 'string', 'in:Laki-laki,Perempuan'],
-            'major' =>['required', 'string', 'in:AKL,TKJ,BiD'],
-            'class'=> ['required', 'string']
+            'major_id' => ['required', 'exists:majors,id'],
+            'class_id' => ['required', 'exists:classes,id'],
         ];
     }
 }
-    
